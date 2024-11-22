@@ -20,4 +20,9 @@ while key:
     else:
         print("Chemical equation has invalid characters. Please use only letters, numbers, +, and spaces.")
         
-print("yes")
+for i in reactants:
+    if not i.isalnum():
+        reactants = reactants.replace(i, "")
+for i in products:
+    if not i.isalnum():
+        products = products.replace(i, "")
