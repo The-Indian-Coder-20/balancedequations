@@ -1,11 +1,13 @@
 from input import reactantsCount, productsCount
 
-reactantElements, productElements = [], []
+print(reactantsCount, productsCount)
+
+uniqueElementsList = []
 
 for i in reactantsCount:
-    if type(i) == str:
-        reactantElements.append(i)
+    if i not in uniqueElementsList and i not in "123456789":
+        uniqueElementsList.append(i)
 for i in productsCount:
-    if type(i) == str:
-        productElements.append(i)
-print(reactantElements, productElements)
+    if i not in uniqueElementsList and i not in "123456789":
+        uniqueElementsList.append(i)
+

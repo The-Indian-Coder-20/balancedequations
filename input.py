@@ -29,7 +29,7 @@ while mainKey:
                     tempWord += reactant[i]
                 elif reactant[i] in "123456789":
                     reactantsCount.append(tempWord)
-                    reactantsCount.append(reactant[i:])
+                    reactantsCount.append(reactant[i])
                     tempWord = ""
                 elif reactant[i] in "()" and i != 0:
                     reactantsCount.append(tempWord)
@@ -56,7 +56,7 @@ while mainKey:
                 i += 1
         else:
             key = False
-            if len(reactantsCount) == 0:
+            if len(reactantsList) == 0:
                 print("No reactants entered. Please enter a reactant.")
                 key = True
 
@@ -74,7 +74,7 @@ while mainKey:
                     tempWord += product[i]
                 elif product[i] in "123456789":
                     productsCount.append(tempWord)
-                    productsCount.append(product[i:])
+                    productsCount.append(product[i])
                     tempWord = ""
                 elif product[i] in "()" and i != 0:
                     productsCount.append(tempWord)
@@ -101,8 +101,8 @@ while mainKey:
                 i += 1
         else:
             key = False
-            if len(productsCount) == 0:
-                print("No products entered. Please enter a reactant.")
+            if len(productsList) == 0:
+                print("No products entered. Please enter a product.")
                 key = True
 
     reactants, products = "", ""
