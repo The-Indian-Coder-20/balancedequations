@@ -31,9 +31,6 @@ while mainKey:
                     reactantsCount.append(tempWord)
                     reactantsCount.append(reactant[i])
                     tempWord = ""
-                elif reactant[i] in "()" and i != 0:
-                    reactantsCount.append(tempWord)
-                    tempWord = ""
                 if i <= len(reactant) - 1:
                     if reactant[i] == "(":
                         tempWord = ""
@@ -76,9 +73,6 @@ while mainKey:
                     productsCount.append(tempWord)
                     productsCount.append(product[i])
                     tempWord = ""
-                elif product[i] in "()" and i != 0:
-                    productsCount.append(tempWord)
-                    tempWord = ""
                 if i <= len(product) - 1:
                     if product[i] == "(":
                         tempWord = ""
@@ -106,6 +100,7 @@ while mainKey:
                 key = True
 
     reactants, products = "", ""
+    print(reactantsCount, productsCount)
 
     if all(valid_equation.fullmatch(item) for item in reactantsCount) and all(valid_equation.fullmatch(item) for item in productsCount):
         for i in reactantsList:
@@ -126,10 +121,14 @@ while mainKey:
         else:
             print("Please re-enter the chemical equation")
             reactantsCount, productsCount = [], []
+            reactantsList, productsList = [], []
             reCount, prCount = 1, 1
             reactants, products = "", ""
+            tempWord = ""
     else:
         print("Invalid equation, make sure the elements are entered correctly.")
         reactantsCount, productsCount = [], []
+        reactantsList, productsList = [], []
         reCount, prCount = 1, 1
         reactants, products = "", ""
+        tempWord = ""
