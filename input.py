@@ -29,8 +29,21 @@ while mainKey:
                     tempWord += reactant[i]
                 elif reactant[i] in "123456789":
                     reactantsCount.append(tempWord)
-                    reactantsCount.append(reactant[i])
+                    tempReactantNum = reactant[i:]
+                    tempNum = ""
+                    for y in tempReactantNum:
+                        if y in "123456789" and tempReactantNum.index(y) == len(tempReactantNum) - 1:
+                            reactantsCount.append(y)
+                            break
+                        elif y in "123456789":
+                            tempNum += y
+                        else:
+                            reactantsCount.append(tempNum)
+                            i = reactant.index(y) - 1
+                            break
                     tempWord = ""
+                    tempNum = ""
+                    tempReactantNum = ""
                 if i <= len(reactant) - 1:
                     if reactant[i] == "(":
                         tempWord = ""
@@ -71,8 +84,21 @@ while mainKey:
                     tempWord += product[i]
                 elif product[i] in "123456789":
                     productsCount.append(tempWord)
-                    productsCount.append(product[i])
+                    tempProductNum = product[i:]
+                    tempNum = ""
+                    for y in tempProductNum:
+                        if y in "123456789" and tempProductNum.index(y) == len(tempProductNum) - 1:
+                            productsCount.append(y)
+                            break
+                        elif y in "123456789":
+                            tempNum += y
+                        else:
+                            productsCount.append(tempNum)
+                            i = product.index(y) - 1
+                            break
                     tempWord = ""
+                    tempNum = ""
+                    tempProductNum = ""
                 if i <= len(product) - 1:
                     if product[i] == "(":
                         tempWord = ""

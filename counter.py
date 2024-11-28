@@ -1,6 +1,7 @@
 from input import reactantsCount, productsCount
 
 uniqueElementsList = []
+uniqueElementsCountList = []
 
 finalReactantsCount, finalProductsCount = [], []
 tempList = []
@@ -32,6 +33,14 @@ for i in range(len(productsCount)):
         finalReactantsCount[tempPosition] += reactantsCount[i]
     
 #Appends unique elements to the list from the reactantsCount list
-for i in reactantsCount:
+for i in finalReactantsCount:
     if i not in uniqueElementsList and type(i) != int:
         uniqueElementsList.append(i)
+
+#Appends the # of atoms for the unique elements to the list
+for i in finalReactantsCount:
+    if type(i) == int:
+        uniqueElementsCountList.append(i)
+
+print(uniqueElementsList)
+print(uniqueElementsCountList)
