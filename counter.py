@@ -1,4 +1,4 @@
-from validElementChecker import reactantsCount, productsCount
+from input import reactantsCount, productsCount
 
 uniqueElementsList = []
 uniqueElementsCountList = []
@@ -11,9 +11,9 @@ for i in range(len(reactantsCount)):
     if reactantsCount[i] in "123456789":
         reactantsCount[i] = int(reactantsCount[i])
 #Integer converter for products
-for i in range(len(reactantsCount)):
-    if reactantsCount[i] in "123456789":
-        reactantsCount[i] = int(reactantsCount[i])
+for i in range(len(productsCount)):
+    if productsCount[i] in "123456789":
+        productsCount[i] = int(productsCount[i])
 
 #Duplicate checker for reactants
 for i in range(len(reactantsCount)):
@@ -41,6 +41,3 @@ for i in finalReactantsCount:
 for i in finalReactantsCount:
     if type(i) == int:
         uniqueElementsCountList.append(i)
-
-print(uniqueElementsList)
-print(uniqueElementsCountList)

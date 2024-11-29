@@ -151,7 +151,6 @@ while mainKey:
             prCount = 1
 
     reactants, products = "", ""
-    print(reactantsCount, productsCount)
 
     if all(valid_equation.fullmatch(item) for item in reactantsCount) and all(valid_equation.fullmatch(item) for item in productsCount):
         for i in reactantsList:
