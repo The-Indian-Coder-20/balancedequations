@@ -8,5 +8,3 @@ for i in range(len(uniqueElementsList)):
     elementMatrix.append([])
     for j in range(len(reactantsList)):
         if uniqueElementsList[i] in reactantsList[j]:
-            elementMatrix[i].append()
-

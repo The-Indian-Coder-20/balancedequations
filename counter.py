@@ -1,4 +1,4 @@
-from input import reactantsCount, productsCount
+from validElementChecker import reactantsCount, productsCount
 
 uniqueElementsList = []
 uniqueElementsCountList = []
