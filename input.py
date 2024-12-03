@@ -31,12 +31,15 @@ while mainKey:
                     if reactant[i].isalpha():
                         tempWord += reactant[i]
                     elif reactant[i] in "123456789":
-                        reactantsCount.append(tempWord)
+                        if len(tempWord) != 0:
+                            reactantsCount.append(tempWord)
                         tempReactantNum = reactant[i:]
                         tempNum = ""
                         for y in tempReactantNum:
                             if y in "123456789" and tempReactantNum.index(y) == len(tempReactantNum) - 1:
-                                reactantsCount.append(y)
+                                tempNum += y
+                                reactantsCount.append(tempNum)
+                                i += tempReactantNum.index(y)
                                 break
                             elif y in "123456789":
                                 tempNum += y
@@ -62,10 +65,21 @@ while mainKey:
                                     reactantsCount[reactantsCount.index(tempReactant[j-1])] = tempPosition
                                     if tempReactant[j+1] not in "123456789":
                                         reactantsCount.append(tempReactant[-1])
-                                elif tempReactant[j] in "123456789" and j != len(tempReactant) - 1:
-                                    reactantsCount.append(str(int(tempReactant[j])*int(tempReactant[tempReactant.index(")") + 1])))
+                                elif tempReactant[j] == ")":
+                                    break
+                                elif tempReactant[j] in "123456789":
+                                    if j == tempReactant.index(")") - 1:
+                                        tempNum += tempReactant[j]
+                                        reactantsCount.append(str(int(tempNum)*int(tempReactant[tempReactant.index(")") + 1])))
+                                    elif tempReactant[j + 1].isalpha():
+                                        tempNum += tempReactant[j]
+                                        reactantsCount.append(str(int(tempNum)*int(tempReactant[tempReactant.index(")") + 1])))
+                                        tempNum = ""
+                                    else:
+                                        tempNum += tempReactant[j]
                             tempWord = ""
-                            i += (j + 1) 
+                            tempNum = ""
+                            i += (j + 2)
                     i += 1
             else:
                 minorKey = False
@@ -82,6 +96,7 @@ while mainKey:
             reactantsCount = []
             reactantsList = []
             reCount = 1
+            tempWord = ""
 
     key = True
     minorKey = True
@@ -98,12 +113,15 @@ while mainKey:
                     if product[i].isalpha():
                         tempWord += product[i]
                     elif product[i] in "123456789":
-                        productsCount.append(tempWord)
+                        if len(tempWord) != 0:
+                            productsCount.append(tempWord)
                         tempProductNum = product[i:]
                         tempNum = ""
                         for y in tempProductNum:
                             if y in "123456789" and tempProductNum.index(y) == len(tempProductNum) - 1:
-                                productsCount.append(y)
+                                tempNum += y
+                                productsCount.append(tempNum)
+                                i += tempProductNum.index(y)
                                 break
                             elif y in "123456789":
                                 tempNum += y
@@ -124,15 +142,26 @@ while mainKey:
                                     if tempProduct[j+1] not in "123456789" and not tempProduct[j+1].islower():
                                         productsCount.append(tempProduct[-1])
                                 elif tempProduct[j].islower():
-                                    tempPosition = productsCount[productsCount.index(tempReactant[j-1])]
+                                    tempPosition = productsCount[productsCount.index(tempProduct[j-1])]
                                     tempPosition += tempProduct[j]
                                     productsCount[productsCount.index(tempProduct[j-1])] = tempPosition
                                     if tempProduct[j+1] not in "123456789":
                                         productsCount.append(tempProduct[-1])
-                                elif tempProduct[j] in "123456789" and j != len(tempProduct) - 1:
-                                    productsCount.append(str(int(tempProduct[j])*int(tempProduct[tempProduct.index(")") + 1])))
+                                elif tempProduct[j] == ")":
+                                    break
+                                elif tempProduct[j] in "123456789":
+                                    if j == tempProduct.index(")") - 1:
+                                        tempNum += tempProduct[j]
+                                        productsCount.append(str(int(tempNum)*int(tempProduct[tempProduct.index(")") + 1])))
+                                    elif tempProduct[j + 1].isalpha():
+                                        tempNum += tempProduct[j]
+                                        productsCount.append(str(int(tempNum)*int(tempProduct[tempProduct.index(")") + 1])))
+                                        tempNum = ""
+                                    else:
+                                        tempNum += tempProduct[j]
                             tempWord = ""
-                            i += (j + 1) 
+                            tempNum = ""
+                            i += (j + 2) 
                     i += 1
             else:
                 minorKey = False
@@ -149,10 +178,11 @@ while mainKey:
             productsCount = []
             productsList = []
             prCount = 1
+            tempWord = ""
 
     reactants, products = "", ""
 
-    if all(valid_equation.fullmatch(item) for item in reactantsCount) and all(valid_equation.fullmatch(item) for item in productsCount):
+    if all(valid_equation.fullmatch(item) for item in reactantsList) and all(valid_equation.fullmatch(item) for item in productsList):
         for i in reactantsList:
             if (reactantsList.index(i) != len(reactantsList) - 1):
                 reactants += i + " + "

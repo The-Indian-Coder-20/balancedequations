@@ -20,4 +20,3 @@ def isRealElementProducts(productsCount):
         print(f"Invalid element: {element}")
         break
     return True
-   
