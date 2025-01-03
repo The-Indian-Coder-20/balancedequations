@@ -3,6 +3,8 @@ from input import reactantsCount, productsCount, reactantsList, productsList
 uniqueElementsList = []
 uniqueElementsCountList = []
 
+print(reactantsCount, productsCount, reactantsList, productsList)
+
 finalReactantsCount, finalProductsCount = [], []
 tempList = []
 
@@ -82,7 +84,7 @@ for i in range(len(reactantsList)):
                     tempTempWord += tempReactant[x]
                 elif tempReactant[x] in "123456789":
                     if x == tempReactant.index(")") - 1:
-                        reactant += 
+                        reactant += tempTempWord + tempTempNum
                     tempTempNum += tempReactant[x]
                     reactant += tempTempWord
                     tempTempWord = ""
@@ -90,7 +92,6 @@ for i in range(len(reactantsList)):
                     break
             j = reactantsList[i].index(")") + 1
         j += 1
-    print(reactant)
     finalReactantsList.append(reactant)
     tempTempWord, tempTempNum = "", ""
     tempWord, tempNum = "", ""

@@ -1,6 +1,7 @@
 import re
 import validElementChecker
 
+
 reCount, prCount = 1, 1
 reactantsCount, productsCount = [], []
 tempWord = ""
@@ -13,80 +14,58 @@ reactantsList, productsList = [], []
 print("""If there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
 """)
 
+
 #Input parsing has been completed for regular chemical equations as well as those with parentheses.
+
+tempWord = ""
+tempNum = ""
+reactantKey = True
+
 while mainKey:
 
-    key = True
-    minorKey = True
-
-    while key:
-        while minorKey:
-            reactant = input(f"What is reactant {reCount}? (...#): ")
-            if reactant != "":
-                reactantsList.append(reactant)
-            i = 0
-            if reactant != "":
-                reCount += 1
-                while i <= len(reactant) - 1 :
-                    if reactant[i].isalpha():
-                        tempWord += reactant[i]
-                    elif reactant[i] in "123456789":
-                        if len(tempWord) != 0:
-                            reactantsCount.append(tempWord)
-                        tempReactantNum = reactant[i:]
-                        tempNum = ""
-                        for y in tempReactantNum:
-                            if y in "123456789" and tempReactantNum.index(y) == len(tempReactantNum) - 1:
-                                tempNum += y
-                                reactantsCount.append(tempNum)
-                                i += tempReactantNum.index(y)
-                                break
-                            elif y in "123456789":
-                                tempNum += y
-                            else:
-                                reactantsCount.append(tempNum)
-                                i = reactant.index(y) - 1
-                                break
-                        tempWord = ""
-                        tempNum = ""
-                        tempReactantNum = ""
-                    if i <= len(reactant) - 1:
-                        if reactant[i] == "(":
-                            tempWord = ""
-                            tempReactant = reactant[i + 1:reactant.index(")") + 2]
-                            for j in range(len(tempReactant)):
-                                if tempReactant[j].isupper():
-                                    reactantsCount.append(tempReactant[j])
-                                    if tempReactant[j+1] not in "123456789" and not tempReactant[j+1].islower():
-                                        reactantsCount.append(tempReactant[-1])
-                                elif tempReactant[j].islower():
-                                    tempPosition = reactantsCount[reactantsCount.index(tempReactant[j-1])]
-                                    tempPosition += tempReactant[j]
-                                    reactantsCount[reactantsCount.index(tempReactant[j-1])] = tempPosition
-                                    if tempReactant[j+1] not in "123456789":
-                                        reactantsCount.append(tempReactant[-1])
-                                elif tempReactant[j] == ")":
-                                    break
-                                elif tempReactant[j] in "123456789":
-                                    if j == tempReactant.index(")") - 1:
-                                        tempNum += tempReactant[j]
-                                        reactantsCount.append(str(int(tempNum)*int(tempReactant[tempReactant.index(")") + 1])))
-                                    elif tempReactant[j + 1].isalpha():
-                                        tempNum += tempReactant[j]
-                                        reactantsCount.append(str(int(tempNum)*int(tempReactant[tempReactant.index(")") + 1])))
-                                        tempNum = ""
-                                    else:
-                                        tempNum += tempReactant[j]
-                            tempWord = ""
+    while reactantKey:
+        reactant = input(f"What is reactant #{reCount}?: ")
+        if reactant == "":
+            break
+        reactantsList.append(reactant)
+        tempReactant = reactant
+        reCount += 1
+        while len(tempReactant) > 0:
+            if tempReactant[0].isalpha():
+                if len(tempNum) != 0:
+                    reactantsCount.append(int(tempNum))
+                    tempNum = ""
+                tempWord += tempReactant[0]
+                tempReactant = tempReactant[1:]
+            elif tempReactant[0].isdigit():
+                reactantsCount.append(tempWord)
+                tempNum += tempReactant[0]
+                if len(tempReactant) == 1:
+                    reactantsCount.append(int(tempNum))
+                tempReactant = tempReactant[1:]
+                tempWord = ""
+            elif tempReactant[0] == "(":
+                reactantsCount.append(int(tempNum))
+                tempReactant = tempReactant[1:]
+                tempNum, tempWord = "", ""
+                while tempReactant[0] != ")":
+                    if tempReactant[0].isalpha():
+                        if len(tempNum) != 0:
+                            reactantsCount.append(int(tempNum) * int(tempReactant[(tempReactant.index(")") + 1)]))
                             tempNum = ""
-                            i += (j + 2)
-                    i += 1
-            else:
-                minorKey = False
-                if len(reactantsList) == 0:
-                    print("No reactants entered. Please enter a reactant.")
-                    minorKey = True
-        if validElementChecker.isRealElementReactants(reactantsCount):
+                        tempWord += tempReactant[0]
+                        tempReactant = tempReactant[1:]
+                    elif tempReactant[0].isdigit():
+                        reactantsCount.append(tempWord)
+                        tempNum += tempReactant[0]
+                        tempReactant = tempReactant[1:]
+                        if tempReactant[0] == ")":
+                            reactantsCount.append(int(tempNum) * int(tempReactant[(tempReactant.index(")") + 1)]))
+                        tempWord = ""
+                    elif tempReactant[0] == ")":
+                            break
+                tempReactant = tempReactant[(tempReactant.index(")") + 2):]
+        if validElementChecker.isRealElementProducts(reactantsCount):
             print("All entered elements in reactants are valid.")
             key = False
         else:
@@ -98,76 +77,52 @@ while mainKey:
             reCount = 1
             tempWord = ""
 
-    key = True
-    minorKey = True
+    tempWord = ""
+    tempNum = ""
+    productKey = True
 
-    while key:
-        while minorKey:
-            product = input(f"What is product {prCount}? (...#): ")
-            if product != "":
-                productsList.append(product)
-            i = 0
-            if product != "":
-                prCount += 1
-                while i <= len(product) - 1 :
-                    if product[i].isalpha():
-                        tempWord += product[i]
-                    elif product[i] in "123456789":
-                        if len(tempWord) != 0:
-                            productsCount.append(tempWord)
-                        tempProductNum = product[i:]
-                        tempNum = ""
-                        for y in tempProductNum:
-                            if y in "123456789" and tempProductNum.index(y) == len(tempProductNum) - 1:
-                                tempNum += y
-                                productsCount.append(tempNum)
-                                i += tempProductNum.index(y)
-                                break
-                            elif y in "123456789":
-                                tempNum += y
-                            else:
-                                productsCount.append(tempNum)
-                                i = product.index(y) - 1
-                                break
-                        tempWord = ""
-                        tempNum = ""
-                        tempProductNum = ""
-                    if i <= len(product) - 1:
-                        if product[i] == "(":
-                            tempWord = ""
-                            tempProduct = product[i + 1:product.index(")") + 2]
-                            for j in range(len(tempProduct)):
-                                if tempProduct[j].isupper():
-                                    productsCount.append(tempProduct[j])
-                                    if tempProduct[j+1] not in "123456789" and not tempProduct[j+1].islower():
-                                        productsCount.append(tempProduct[-1])
-                                elif tempProduct[j].islower():
-                                    tempPosition = productsCount[productsCount.index(tempProduct[j-1])]
-                                    tempPosition += tempProduct[j]
-                                    productsCount[productsCount.index(tempProduct[j-1])] = tempPosition
-                                    if tempProduct[j+1] not in "123456789":
-                                        productsCount.append(tempProduct[-1])
-                                elif tempProduct[j] == ")":
-                                    break
-                                elif tempProduct[j] in "123456789":
-                                    if j == tempProduct.index(")") - 1:
-                                        tempNum += tempProduct[j]
-                                        productsCount.append(str(int(tempNum)*int(tempProduct[tempProduct.index(")") + 1])))
-                                    elif tempProduct[j + 1].isalpha():
-                                        tempNum += tempProduct[j]
-                                        productsCount.append(str(int(tempNum)*int(tempProduct[tempProduct.index(")") + 1])))
-                                        tempNum = ""
-                                    else:
-                                        tempNum += tempProduct[j]
-                            tempWord = ""
+    while productKey:
+        product = input(f"What is product #{prCount}?: ")
+        if product == "":
+            break
+        productsList.append(product)
+        tempProduct = product
+        prCount += 1
+        while len(tempProduct) > 0:
+            if tempProduct[0].isalpha():
+                if len(tempNum) != 0:
+                    productsCount.append(int(tempNum))
+                    tempNum = ""
+                tempWord += tempProduct[0]
+                tempProduct = tempProduct[1:]
+            elif tempProduct[0].isdigit():
+                productsCount.append(tempWord)
+                tempNum += tempProduct[0]
+                if len(tempProduct) == 1:
+                    productsCount.append(int(tempNum))
+                tempProduct = tempProduct[1:]
+                tempWord = ""
+            elif tempProduct[0] == "(":
+                productsCount.append(int(tempNum))
+                tempProduct = tempProduct[1:]
+                tempNum, tempWord = "", ""
+                while tempProduct[0] != ")":
+                    if tempProduct[0].isalpha():
+                        if len(tempNum) != 0:
+                            productsCount.append(int(tempNum) * int(tempProduct[(tempProduct.index(")") + 1)]))
                             tempNum = ""
-                            i += (j + 2) 
-                    i += 1
-            else:
-                minorKey = False
-                if len(productsList) == 0:
-                    print("No products entered. Please enter a product.")
-                    minorKey = True
+                        tempWord += tempProduct[0]
+                        tempProduct = tempProduct[1:]
+                    elif tempProduct[0].isdigit():
+                        productsCount.append(tempWord)
+                        tempNum += tempProduct[0]
+                        tempProduct = tempProduct[1:]
+                        if tempProduct[0] == ")":
+                            productsCount.append(int(tempNum) * int(tempProduct[(tempProduct.index(")") + 1)]))
+                        tempWord = ""
+                    elif tempProduct[0] == ")":
+                            break
+                tempProduct = tempProduct[(tempProduct.index(")") + 2):]
         if validElementChecker.isRealElementProducts(productsCount):
             print("All entered elements in products are valid.")
             key = False
