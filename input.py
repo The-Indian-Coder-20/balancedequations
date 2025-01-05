@@ -9,7 +9,9 @@ valid_equation = re.compile(r'^[A-Za-z0-9()]+$')
 mainKey = True
 tempCount = 0
 lastBracketIndex = 0
+
 reactantsList, productsList = [], []
+finalReactantsCount, finalProductsCount = [], []
 
 print("""If there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
 """)
@@ -65,17 +67,8 @@ while mainKey:
                     elif tempReactant[0] == ")":
                             break
                 tempReactant = tempReactant[(tempReactant.index(")") + 2):]
-        if validElementChecker.isRealElementProducts(reactantsCount):
-            print("All entered elements in reactants are valid.")
-            key = False
-        else:
-            print("One or more entered elements in reactants are not valid.")
-            key = True
-            minorKey = True
-            reactantsCount = []
-            reactantsList = []
-            reCount = 1
-            tempWord = ""
+        finalReactantsCount.append(reactantsCount)
+        reactantsCount = []
 
     tempWord = ""
     tempNum = ""
@@ -119,22 +112,15 @@ while mainKey:
                         tempProduct = tempProduct[1:]
                         if tempProduct[0] == ")":
                             productsCount.append(int(tempNum) * int(tempProduct[(tempProduct.index(")") + 1)]))
+                            tempNum = ""
                         tempWord = ""
                     elif tempProduct[0] == ")":
                             break
                 tempProduct = tempProduct[(tempProduct.index(")") + 2):]
-        if validElementChecker.isRealElementProducts(productsCount):
-            print("All entered elements in products are valid.")
-            key = False
-        else:
-            print("One or more entered elements in products are not valid.")
-            key = True
-            minorKey = True
-            productsCount = []
-            productsList = []
-            prCount = 1
-            tempWord = ""
+        finalProductsCount.append(productsCount)
+        productsCount = []
 
+    print(finalProductsCount, finalReactantsCount)
     reactants, products = "", ""
 
     if all(valid_equation.fullmatch(item) for item in reactantsList) and all(valid_equation.fullmatch(item) for item in productsList):
