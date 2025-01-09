@@ -18,7 +18,6 @@ print("""If there is only one atom of the element, please input the number '1' a
 
 
 #Input parsing has been completed for regular chemical equations as well as those with parentheses.
-
 tempWord = ""
 tempNum = ""
 reactantKey = True
@@ -26,6 +25,7 @@ reactantKey = True
 while mainKey:
 
     while reactantKey:
+        tempNum, tempWord = "", ""
         reactant = input(f"What is reactant #{reCount}?: ")
         if reactant == "":
             break
@@ -67,6 +67,7 @@ while mainKey:
                     elif tempReactant[0] == ")":
                             break
                 tempReactant = tempReactant[(tempReactant.index(")") + 2):]
+                tempNum = ""
         finalReactantsCount.append(reactantsCount)
         reactantsCount = []
 
@@ -75,6 +76,7 @@ while mainKey:
     productKey = True
 
     while productKey:
+        tempNum, tempWord = "", ""
         product = input(f"What is product #{prCount}?: ")
         if product == "":
             break
@@ -117,15 +119,15 @@ while mainKey:
                     elif tempProduct[0] == ")":
                             break
                 tempProduct = tempProduct[(tempProduct.index(")") + 2):]
+                tempNum = ""
         finalProductsCount.append(productsCount)
         productsCount = []
 
-    print(finalProductsCount, finalReactantsCount)
     reactants, products = "", ""
 
     if all(valid_equation.fullmatch(item) for item in reactantsList) and all(valid_equation.fullmatch(item) for item in productsList):
         for i in reactantsList:
-            if (reactantsList.index(i) != len(reactantsList) - 1):
+            if reactantsList.index(i) != len(reactantsList) - 1:
                 reactants += i + " + "
             else:
                 reactants += i
