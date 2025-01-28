@@ -1,4 +1,4 @@
-from input import finalReactantsCount, finalProductsCount, reactantsList, productsList
+from input import reactantsList, productsList, finalProductsCount, finalReactantsCount
 
 uniqueElementsList = []
 
@@ -7,27 +7,29 @@ for i in range(len(finalReactantsCount)):
         if j not in uniqueElementsList and type(j) == str:
             uniqueElementsList.append(j)
 
-print(uniqueElementsList)
-
-reactantsVectorsList, productsVectorsList = [], []
+totalReactants = []
 
 for i in reactantsList:
-    reactantsVectorsList.append([])
+    totalReactants.append(i)
 for i in productsList:
-    productsVectorsList.append([])
+    totalReactants.append(i)
 
-for i in uniqueElementsList:
-    for j in range(len(reactantsList)):
-        if i in reactantsList[j]:
-            reactantsVectorsList[j].append(finalReactantsCount[j][finalReactantsCount[j].index(i) + 1])
+finalCounts = []
+
+for i in finalReactantsCount:
+    finalCounts.append(i)
+for i in finalProductsCount:
+    finalCounts.append(i)
+
+nonUsageMatrix = []
+
+for i in range(len(uniqueElementsList)):
+    nonUsageMatrix.append([])
+    for j in range(len(totalReactants)):
+        if uniqueElementsList[i] in totalReactants[j]:
+            if j <= len(reactantsList) - 1:
+                nonUsageMatrix[i].append(finalCounts[j][finalCounts[j].index(uniqueElementsList[i]) + 1])
+            else:
+                nonUsageMatrix[i].append((finalCounts[j][finalCounts[j].index(uniqueElementsList[i]) + 1]) * -1)
         else:
-            reactantsVectorsList[j].append(0)
-
-for i in uniqueElementsList:
-    for j in range(len(productsList)):
-        if i in productsList[j]:
-            productsVectorsList[j].append(finalProductsCount[j][finalProductsCount[j].index(i) + 1])
-        else:
-            productsVectorsList[j].append(0)
-
-print(uniqueElementsList, reactantsVectorsList, productsVectorsList)
+            nonUsageMatrix[i].append(0)

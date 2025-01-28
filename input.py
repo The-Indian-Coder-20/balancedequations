@@ -40,14 +40,16 @@ while mainKey:
                 tempWord += tempReactant[0]
                 tempReactant = tempReactant[1:]
             elif tempReactant[0].isdigit():
-                reactantsCount.append(tempWord)
+                if len(tempWord) != 0:
+                    reactantsCount.append(tempWord)
                 tempNum += tempReactant[0]
                 if len(tempReactant) == 1:
                     reactantsCount.append(int(tempNum))
                 tempReactant = tempReactant[1:]
                 tempWord = ""
             elif tempReactant[0] == "(":
-                reactantsCount.append(int(tempNum))
+                if len(tempNum) != 0:
+                    reactantsCount.append(int(tempNum))
                 tempReactant = tempReactant[1:]
                 tempNum, tempWord = "", ""
                 while tempReactant[0] != ")":
@@ -91,14 +93,16 @@ while mainKey:
                 tempWord += tempProduct[0]
                 tempProduct = tempProduct[1:]
             elif tempProduct[0].isdigit():
-                productsCount.append(tempWord)
+                if len(tempWord) != 0:
+                    productsCount.append(tempWord)
                 tempNum += tempProduct[0]
                 if len(tempProduct) == 1:
                     productsCount.append(int(tempNum))
                 tempProduct = tempProduct[1:]
                 tempWord = ""
             elif tempProduct[0] == "(":
-                productsCount.append(int(tempNum))
+                if len(tempNum) != 0:
+                    productsCount.append(int(tempNum))
                 tempProduct = tempProduct[1:]
                 tempNum, tempWord = "", ""
                 while tempProduct[0] != ")":
@@ -144,6 +148,7 @@ while mainKey:
         else:
             print("Please re-enter the chemical equation")
             reactantsCount, productsCount = [], []
+            finalProductsCount, finalReactantsCount = [], []
             reactantsList, productsList = [], []
             reCount, prCount = 1, 1
             reactants, products = "", ""
@@ -151,6 +156,7 @@ while mainKey:
     else:
         print("Invalid equation, make sure the elements are entered correctly.")
         reactantsCount, productsCount = [], []
+        finalProductsCount, finalReactantsCount = [], []
         reactantsList, productsList = [], []
         reCount, prCount = 1, 1
         reactants, products = "", ""
