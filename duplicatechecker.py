@@ -6,7 +6,7 @@ tempReactantList, tempProductList = [], []
 
 for i in finalReactantsCount:
     for j in range(len(i)):
-        if i.count(i[j]) <= 2 and i[j] not in tempReactantList:
+        if i.count(i[j]) <= 2 and i[j] not in tempReactantList and type(i[j]) != int:
             tempReactantList.append(i[j])
             tempReactantList.append(i[j + 1])
         elif i[j] in tempReactantList and type(i[j]) != int:
@@ -19,7 +19,7 @@ for i in finalReactantsCount:
 
 for i in finalProductsCount:
     for j in range(len(i)):
-        if i.count(i[j]) <= 2 and i[j] not in tempProductList:
+        if i.count(i[j]) <= 2 and i[j] not in tempProductList and type(i[j]) != int:
             tempProductList.append(i[j])
             tempProductList.append(i[j + 1])
         elif i[j] in tempProductList and type(i[j]) != int:

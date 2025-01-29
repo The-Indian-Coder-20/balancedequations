@@ -29,9 +29,12 @@ for element in uniqueElementsList:
 
 for i in range(len(finalCounts)):
     for element in uniqueElementsList:
-        for j in range(len(finalCounts[i])):
-            if finalCounts[i][j] == element:
-                if i <= len(finalReactantsCount) - 1:
-                    nonUsageMatrix[uniqueElementsList.index(element)].append(finalCounts[i][j + 1])
-                else:
-                    nonUsageMatrix[uniqueElementsList.index(element)].append(int("-" + str(finalCounts[i][j + 1])))
+        if element not in finalCounts[i]:
+            nonUsageMatrix[uniqueElementsList.index(element)].append(0)
+        else:
+            for j in range(len(finalCounts[i])):
+                if finalCounts[i][j] == element:
+                    if i <= len(finalReactantsCount) - 1:
+                        nonUsageMatrix[uniqueElementsList.index(element)].append(finalCounts[i][j + 1])
+                    else:
+                        nonUsageMatrix[uniqueElementsList.index(element)].append(int("-" + str(finalCounts[i][j + 1])))
