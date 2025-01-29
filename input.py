@@ -4,7 +4,6 @@ import validElementChecker
 
 reCount, prCount = 1, 1
 reactantsCount, productsCount = [], []
-tempWord = ""
 valid_equation = re.compile(r'^[A-Za-z0-9()]+$')
 mainKey = True
 tempCount = 0

@@ -1,4 +1,5 @@
-from input import reactantsList, productsList, finalProductsCount, finalReactantsCount
+from input import reactantsList, productsList
+from duplicatechecker import finalReactantsCount, finalProductsCount
 
 uniqueElementsList = []
 
@@ -23,13 +24,14 @@ for i in finalProductsCount:
 
 nonUsageMatrix = []
 
-for i in range(len(uniqueElementsList)):
+for element in uniqueElementsList:
     nonUsageMatrix.append([])
-    for j in range(len(totalReactants)):
-        if uniqueElementsList[i] in totalReactants[j]:
-            if j <= len(reactantsList) - 1:
-                nonUsageMatrix[i].append(finalCounts[j][finalCounts[j].index(uniqueElementsList[i]) + 1])
-            else:
-                nonUsageMatrix[i].append((finalCounts[j][finalCounts[j].index(uniqueElementsList[i]) + 1]) * -1)
-        else:
-            nonUsageMatrix[i].append(0)
+
+for i in range(len(finalCounts)):
+    for element in uniqueElementsList:
+        for j in range(len(finalCounts[i])):
+            if finalCounts[i][j] == element:
+                if i <= len(finalReactantsCount) - 1:
+                    nonUsageMatrix[uniqueElementsList.index(element)].append(finalCounts[i][j + 1])
+                else:
+                    nonUsageMatrix[uniqueElementsList.index(element)].append(int("-" + str(finalCounts[i][j + 1])))
