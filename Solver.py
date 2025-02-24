@@ -29,15 +29,26 @@ def lcm_of_numbers(*numbers):
 
 finalDenominator = lcm_of_numbers(*denominatorList)
 
+print(finalDenominator)
+print(finalMatrixCounts)
+
 if len(finalMatrixCounts) != len(finalCounts):
     for i in range((len(finalCounts)) - (len(finalMatrixCounts))):
         finalMatrixCounts.append(1)
 
 for i in range(len(finalMatrixCounts)):
     if finalMatrixCounts[i] != 1:
-        finalMatrixCounts[i] = int(finalMatrixCounts[i] * (-1 * finalDenominator))
+        finalMatrixCounts[i] = finalMatrixCounts[i] * (-1 * finalDenominator)
+        if finalMatrixCounts[i] % 1 == 0:
+            finalMatrixCounts[i] = int(finalMatrixCounts[i])
+        else:
+            pass
     else:
-        finalMatrixCounts[i] = int(finalMatrixCounts[i] * finalDenominator)
+        finalMatrixCounts[i] = finalMatrixCounts[i] * finalDenominator
+        if finalMatrixCounts[i] % 1 == 0:
+            finalMatrixCounts[i] = int(finalMatrixCounts[i])
+        else:
+            pass
 
 for i in range(len(finalMatrixCounts)):
     if finalMatrixCounts[i] != 1:
