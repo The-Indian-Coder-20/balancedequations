@@ -18,7 +18,7 @@ Balances all (as of my knowledge) chemical equations. That's it.
 - [Contact](#-contact)
 
 ## 🛠 Installation
-Install through command prompt, powershell, or terminal:
+Install python (if you don't have) through command prompt, powershell, or terminal:
 
 ```bash
 sudo apt-get install python
@@ -29,6 +29,8 @@ or if you would rather using winget (Windows Package Manager):
 winget install python
 ```
 
+Then if you have Git, simply clone this repository and continue.
+If you don't, just download the ZIP file and extract the files and continue.
 
 
 ## 📚 Tutorial
