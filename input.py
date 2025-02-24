@@ -1,4 +1,6 @@
 import re
+import warnings
+
 import validElementChecker
 
 
@@ -12,7 +14,8 @@ lastBracketIndex = 0
 reactantsList, productsList = [], []
 finalReactantsCount, finalProductsCount = [], []
 
-GREENFONTCOLOR =  '\033[32m'
+GREENFONTCOLOR =  '\033[92m'
+DEFAULTFONTCOLOR = '\033[m'
 
 print(GREENFONTCOLOR + """
   ______                  _   _               ____        _                           
@@ -23,11 +26,9 @@ print(GREENFONTCOLOR + """
  |______\__, |\__,_|\__,_|\__|_|\___/|_| |_| |____/ \__,_|_|\__,_|_| |_|\___\___|_|   
            | |                                                                        
            |_|                                                                        
-""")
+""" + DEFAULTFONTCOLOR)
 
-DEFAULTFONTCOLOR = '\033[m'
-
-print(DEFAULTFONTCOLOR + """\nIf there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
+print("""\nIf there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
 If you are finished entering the reactants/products, simply leave the input blank and press the "enter" button.
 Please enter the compounds without any given balancing numbers/constants.
 """)
