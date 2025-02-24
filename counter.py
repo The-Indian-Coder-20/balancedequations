@@ -8,12 +8,12 @@ for i in range(len(finalReactantsCount)):
         if j not in uniqueElementsList and type(j) == str:
             uniqueElementsList.append(j)
 
-totalReactants = []
+totalPrRe = []
 
 for i in reactantsList:
-    totalReactants.append(i)
+    totalPrRe.append(i)
 for i in productsList:
-    totalReactants.append(i)
+    totalPrRe.append(i)
 
 finalCounts = []
 

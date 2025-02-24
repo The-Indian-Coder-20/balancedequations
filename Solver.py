@@ -1,5 +1,8 @@
-from sympy import Matrix, symbols
-from counter import nonUsageMatrix, uniqueElementsList
+from sympy import Matrix
+from counter import nonUsageMatrix, finalCounts, totalPrRe, reactantsList, productsList
+from fractions import Fraction as fr
+import math
+import functools
 
 matrix = Matrix(nonUsageMatrix)
 
@@ -12,16 +15,54 @@ for j in range(len(rref_matrix[0])):
     if rref_matrix[0][j] != 1 and rref_matrix[0][j] != 0:
         finalMatrixCounts.append(rref_matrix[0][j])
 
-print(rref_matrix)
-print(finalMatrixCounts)
-
-t = symbols("t")
+denominatorList = []
 
 for i in range(len(finalMatrixCounts)):
-    finalMatrixCounts[i] = finalMatrixCounts[i] * t
+    denominator = fr(finalMatrixCounts[i]).limit_denominator().denominator
+    if denominator not in denominatorList and finalMatrixCounts[i] != 1:
+        denominatorList.append(denominator)
 
-if len(nonUsageMatrix) - 1 <= len(uniqueElementsList) - 1:
-    for i in range(((len(uniqueElementsList) - 1) - (len(nonUsageMatrix) - 1))):
-        finalMatrixCounts.append(t)
+def lcm(a, b):
+    return abs(a * b) // math.gcd(a, b)
 
-print(finalMatrixCounts)
+def lcm_of_numbers(*numbers):
+    return functools.reduce(lcm, numbers)
+
+finalDenominator = lcm_of_numbers(*denominatorList)
+
+if len(finalMatrixCounts) != len(finalCounts):
+    for i in range((len(finalCounts)) - (len(finalMatrixCounts))):
+        finalMatrixCounts.append(1)
+
+for i in range(len(finalMatrixCounts)):
+    if finalMatrixCounts[i] != 1:
+        finalMatrixCounts[i] = int(finalMatrixCounts[i] * (-1 * finalDenominator))
+    else:
+        finalMatrixCounts[i] = int(finalMatrixCounts[i] * finalDenominator)
+
+for i in range(len(finalMatrixCounts)):
+    if finalMatrixCounts[i] != 1:
+        totalPrRe[i] = f"{finalMatrixCounts[i]}({totalPrRe[i]})"
+
+finalReactantsList, finalProductsList = [], []
+
+for i in range(len(reactantsList)):
+    finalReactantsList.append(finalMatrixCounts[i])
+for i in range(len(productsList)):
+    finalProductsList.append(finalMatrixCounts[i + (len(reactantsList) - 1)])
+
+for index in range(len(finalReactantsList)):
+    if index != len(finalReactantsList) - 1:
+        finalReactantsList[index] = f"{finalReactantsList[index]} + "
+for index in range(len(finalProductsList)):
+    if index != len(finalProductsList) - 1:
+        finalProductsList[index] = f"{finalProductsList[index]} + "
+
+reactants, products = "", ""
+
+for i in finalReactantsList:
+    reactants += i
+for i in finalProductsList:
+    products += i
+
+print(f"{finalReactantsList} => {finalProductsList}")
