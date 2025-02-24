@@ -11,7 +11,6 @@ rref_matrix = matrix.rref()
 finalMatrixCounts = []
 
 for j in range(len(rref_matrix[0])):
-    print(rref_matrix[0][j])
     if rref_matrix[0][j] != 1 and rref_matrix[0][j] != 0:
         finalMatrixCounts.append(rref_matrix[0][j])
 
@@ -47,9 +46,9 @@ for i in range(len(finalMatrixCounts)):
 finalReactantsList, finalProductsList = [], []
 
 for i in range(len(reactantsList)):
-    finalReactantsList.append(finalMatrixCounts[i])
+    finalReactantsList.append(f"{totalPrRe[i]}")
 for i in range(len(productsList)):
-    finalProductsList.append(finalMatrixCounts[i + (len(reactantsList) - 1)])
+    finalProductsList.append(f"{totalPrRe[i + len(reactantsList)]}")
 
 for index in range(len(finalReactantsList)):
     if index != len(finalReactantsList) - 1:
@@ -65,4 +64,7 @@ for i in finalReactantsList:
 for i in finalProductsList:
     products += i
 
-print(f"{finalReactantsList} => {finalProductsList}")
+print(f"""
+The balanced chemical equation is:
+
+{reactants} => {products}""")

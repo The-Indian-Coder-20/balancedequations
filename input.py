@@ -12,7 +12,24 @@ lastBracketIndex = 0
 reactantsList, productsList = [], []
 finalReactantsCount, finalProductsCount = [], []
 
-print("""If there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
+GREENFONTCOLOR =  '\033[32m'
+
+print(GREENFONTCOLOR + """
+  ______                  _   _               ____        _                           
+ |  ____|                | | (_)             |  _ \      | |                          
+ | |__   __ _ _   _  __ _| |_ _  ___  _ __   | |_) | __ _| | __ _ _ __   ___ ___ _ __ 
+ |  __| / _` | | | |/ _` | __| |/ _ \| '_ \  |  _ < / _` | |/ _` | '_ \ / __/ _ \ '__|
+ | |___| (_| | |_| | (_| | |_| | (_) | | | | | |_) | (_| | | (_| | | | | (_|  __/ |   
+ |______\__, |\__,_|\__,_|\__|_|\___/|_| |_| |____/ \__,_|_|\__,_|_| |_|\___\___|_|   
+           | |                                                                        
+           |_|                                                                        
+""")
+
+DEFAULTFONTCOLOR = '\033[m'
+
+print(DEFAULTFONTCOLOR + """\nIf there is only one atom of the element, please input the number '1' after the element. (E.g. Na1).
+If you are finished entering the reactants/products, simply leave the input blank and press the "enter" button.
+Please enter the compounds without any given balancing numbers/constants.
 """)
 
 
@@ -26,6 +43,7 @@ while mainKey:
     while reactantKey:
         tempNum, tempWord = "", ""
         reactant = input(f"What is reactant #{reCount}?: ")
+        print("-")
         if reactant == "":
             break
         reactantsList.append(reactant)
@@ -79,6 +97,7 @@ while mainKey:
     while productKey:
         tempNum, tempWord = "", ""
         product = input(f"What is product #{prCount}?: ")
+        print("-")
         if product == "":
             break
         productsList.append(product)
@@ -139,8 +158,8 @@ while mainKey:
                 products += i + " + "
             else:
                 products += i
-        print(f"The entered equation is {reactants} => {products}")
-        check = input("Is the entered equation correct? [y/n] ")
+        print(f"\nThe entered equation is {reactants} => {products}")
+        check = input("\nIs the entered equation correct? [y/n] ")
         if check.lower() == "y":
             print("Proceeding...")
             mainKey = False
@@ -153,7 +172,7 @@ while mainKey:
             reactants, products = "", ""
             tempWord = ""
     else:
-        print("Invalid equation, make sure the elements are entered correctly.")
+        print("Invalid equation, make sure the reactants/products are entered correctly.")
         reactantsCount, productsCount = [], []
         finalProductsCount, finalReactantsCount = [], []
         reactantsList, productsList = [], []
